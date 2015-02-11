@@ -12,11 +12,15 @@
 	</div>
 	<div class="login">
 		{% if user %}
-		<p><img src="{{user.avatar}}" width="64" height="64" alt="Avatar"></p>
-		<p>Logged in as {{user.name}}</p>
-		<p><a href="{{url_for('logoutUser')}}"><button style="float: right">Logout</button></a></p>
+		<div class="username">
+			<div><p class="username">{{user.name}}</p></div>
+			<a href="{{url_for('logoutUser')}}"><button style="float: right">Logout</button></a>
+		</div>
+		<div class="avatar">
+			<img src="{{user.avatar}}" width="80" height="80" alt="Avatar">
+		</div>
 		{% else %}
-		<a href="{{url_for('loginUser')}}"><button style="float: right">Login with GitHub</button></a>
+		<a href="{{url_for('loginUser')}}"><button class="buttonright">Login with GitHub</button></a>
 		{% endif %}
 	</div>
 </div>

@@ -1,5 +1,5 @@
 {% include 'header.html' %}
-	<div class="main">
+	<div class="item">
 		{% if item.image %}
 		<p><img class="itemimage" src="{{item.image}}" width="256" height="256" alt="Image">
 		</p>
@@ -23,7 +23,7 @@
 		{% endif %}
 		<p>
 			<a href="{{url_for('showCategory',category_name=item.category.name)}}">
-				<button>Back</button>
+				<button class:"jsonbutton">Back</button>
 			</a>
 		</p>
 	</div>
