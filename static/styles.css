@@ -29,30 +29,16 @@ p {
 	overflow: visible;*/
 }
 .login {
-	width: 280;
 	position: absolute;
 	right: 0;
-	top: 0;
+	button: 0;
 	display: -webkit-flex;
 	display: flex;
 }
-.buttonright {
-	position: absolute;
-	right: 0;
-}
-.avatar {
-	width: 80px;
-}
-div.username {
-	width: 200px;
-	text-align:right;
-}
 p.username {
+	text-align:right;
 	padding-top: 10px;
 	padding-right: 2px;
-}
-.username > div {
-
 }
 .main,.item {
 	background-color: #333333;
@@ -88,8 +74,8 @@ p.username {
 	display: -webkit-flex;
 	display: flex;
 }
-.json {
-	width: 200px;
+.api {
+	/*width: 200px;*/
 	position: absolute;
 	right: 0;
 	bottom: 0;
