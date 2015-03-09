@@ -9,7 +9,7 @@ from sqlalchemy import create_engine
 
 Base = declarative_base()
 
-# User class
+"""User class"""
 class User(Base):
     __tablename__ = 'Users'
    
@@ -18,14 +18,14 @@ class User(Base):
     github_access_token = Column(String(255))
     avatar = Column(String(255))
 
-# Category class
+"""Category class"""
 class Category(Base):
     __tablename__ = 'Categories'
 
     name = Column(String(255), nullable = False)
     id = Column(Integer, primary_key = True)
 
-# Item class
+"""Item class"""
 class Item(Base):
     __tablename__ = 'Items'
 

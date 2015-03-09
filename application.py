@@ -29,7 +29,7 @@ db_session = scoped_session(sessionmaker(autocommit=False,
 Base.query = db_session.query_property()
 # flask functions 
 ##################
-# show whole catalog with latest items
+"""show whole catalog with latest items"""
 @app.route('/')
 @app.route('/catalog/')
 def showCatalog():
@@ -37,7 +37,7 @@ def showCatalog():
 	items = Item.query.order_by(Item.created.desc()).all()
 	return render_template('catalog.html', categories = categories,items=items,user=g.user)
 
-# show a category with its items
+"""show a category with its items"""
 @app.route('/catalog/<string:category_name>/')
 def showCategory(category_name):
 	categories = Category.query.all()
@@ -45,13 +45,13 @@ def showCategory(category_name):
 	items = Item.query.filter_by(category = category).all()
 	return render_template('catalog.html', categories = categories,items=items,category=category,user=g.user)
 
-# show a item 
+"""show a item"""
 @app.route('/item/<int:item_id>/')
 def showItem(item_id):
 	item = Item.query.filter_by(id = item_id).one()
 	return render_template('item.html', item = item,user=g.user)
 
-# add a item 
+"""add a item"""
 @app.route('/catalog/<string:category_name>/add/', methods = ['GET', 'POST'])
 def addItem(category_name):
 	categories = Category.query.all()
@@ -77,7 +77,7 @@ def addItem(category_name):
 		flash("Unauthorized user")
 		return redirect(url_for('showCatalog'))
 
-# edit a item 
+"""edit a item"""
 @app.route('/item/<int:item_id>/edit/', methods = ['GET', 'POST'])
 def editItem(item_id):
 	item = Item.query.filter_by(id = item_id).one()
@@ -107,7 +107,7 @@ def editItem(item_id):
 		flash("Unauthorized user")
 		return redirect(url_for('showCatalog'))
 
-# delete a item 
+"""delete a item"""
 @app.route('/item/<int:item_id>/delete/', methods = ['GET', 'POST'])
 def deleteItem(item_id):
 	item = Item.query.filter_by(id = item_id).one()
@@ -127,7 +127,7 @@ def deleteItem(item_id):
 		return redirect(url_for('showCatalog'))
 
 
-# user Login 
+"""user Login"""
 @app.route('/login')
 def loginUser():
 	# send user back to the source page
@@ -138,14 +138,15 @@ def loginUser():
 	# else:
 	# 	flash('User is already logged in')
 	# 	return redirect(url_for('showCatalog'))
-# logout user and show main catalog view
+	
+"""logout user and show main catalog view"""
 @app.route('/logout')
 def logoutUser():
 	session.pop('user_id', None)
 	flash('User logged out')
 	return redirect(url_for('showCatalog'))
 
-# callback for github oauth 
+"""callback for github oauth"""
 @app.route('/github-callback')
 @github.authorized_handler
 def authorized(oauth_token):
@@ -169,7 +170,7 @@ def authorized(oauth_token):
 	flash("User " + user.name + " logged in")
 	return redirect(next_url)
 
-# github token getter
+"""github token getter"""
 @github.access_token_getter
 def token_getter():
 	user = g.user
@@ -178,7 +179,7 @@ def token_getter():
 
 # Registers a function to run before each request.
 @app.before_request
-# save user data to database, maybe it changed or user is new
+"""save user data to database, maybe it changed or user is new"""
 def before_request():
 	g.user = None
 	if 'user_id' in session:
@@ -188,13 +189,13 @@ def before_request():
 		db_session.add(g.user)
 		db_session.commit()
 
-# Register a function to be run after each request.
+"""Register a function to be run after each request"""
 @app.after_request
 def after_request(response):
 	db_session.remove()
 	return response
 
-# json api for list of all items
+"""json api for list of all items"""
 @app.route('/json')
 def catalogjson():
 	list = []
