@@ -15,6 +15,7 @@ from flask.ext.github import GitHub
 # config application
 app.config['GITHUB_CLIENT_ID'] = 'XXX'
 app.config['GITHUB_CLIENT_SECRET'] = 'YYY'
+app_secret = 'ZZZ'
 github_callback_url = "https://dev.danielburkard.de/github-callback"
 github = GitHub(app)
 
@@ -223,5 +224,5 @@ def catalogjson():
 # run flask server if script is started directly 
 if __name__ == '__main__':
 	app.debug = True
-	app.secret_key='ZZZ'
+	app.secret_key=app_secret
 	app.run(host = '0.0.0.0', port = 5000)
