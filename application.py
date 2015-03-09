@@ -11,6 +11,8 @@ csrf = SeaSurf(app)
 
 # setup client id and secret of github application for oauth 
 from flask.ext.github import GitHub
+
+# config application
 app.config['GITHUB_CLIENT_ID'] = 'XXX'
 app.config['GITHUB_CLIENT_SECRET'] = 'YYY'
 github_callback_url = "https://dev.danielburkard.de/github-callback"
