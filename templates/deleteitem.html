@@ -3,6 +3,7 @@
 		<h2> Are you sure you want to delete {{item.name}}?</h2>
 		<p>
 			<form action="#" method='post'>
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
 				<button type='submit'>Delete</button>
 			</form>
 		</p>

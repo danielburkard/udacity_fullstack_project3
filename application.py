@@ -1,8 +1,9 @@
 # inspired by https://github.com/cenkalti/github-flask/blob/master/example.py
 # setup flask
 from flask import Flask, render_template, request, redirect, url_for, jsonify, flash, g, session
+from flask.ext.seasurf import SeaSurf
 app = Flask(__name__)
-
+csrf = SeaSurf(app)
 # setup ssl if needed
 # import ssl
 # context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
@@ -185,8 +186,8 @@ def token_getter():
 		return user.github_access_token
 
 # Registers a function to run before each request.
-@app.before_request
 """save user data to database, maybe it changed or user is new"""
+@app.before_request
 def before_request():
 	g.user = None
 	if 'user_id' in session:

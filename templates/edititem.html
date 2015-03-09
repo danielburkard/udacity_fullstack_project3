@@ -1,6 +1,7 @@
 {% include 'header.html' %}
 	<div class="item">
 		<form action="#" method='post'>
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
 			<h2>Edit Item {{item.name}}</h2>
 			<dl>
 				<dt>Name:</dt>
