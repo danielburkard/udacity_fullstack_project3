@@ -31,7 +31,12 @@ app.config['GITHUB_CLIENT_ID'] = 'XXX'
 app.config['GITHUB_CLIENT_SECRET'] = 'YYY'
 ```
 
-The callback url should be something like https://dev.danielburkard.de/github-callback and can be configured in the head of application.py:
+for session managment you should change the secret key of the app:
+```python
+app_secret = 'ZZZ'
+```
+
+the callback url should be something like https://dev.danielburkard.de/github-callback and can be configured in the head of application.py:
 ```python
 github_callback_url = "https://dev.danielburkard.de/github-callback"
 ```
