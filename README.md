@@ -21,6 +21,7 @@ udacity Full Stack Web Developer Nanodegree Project 3 - Item Catalog
 * [flask](http://flask.pocoo.org) 
 * [sqlalchemy](http://www.sqlalchemy.org)
 * [SeaSurf](https://flask-seasurf.readthedocs.org)
+* [GitHub-Flask](https://github-flask.readthedocs.org/en/latest/)
 
 ##Setup
 for GitHub OAuth the Client ID and Client Secret have to be changed in application.py: 
