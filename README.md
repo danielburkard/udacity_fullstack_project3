@@ -15,6 +15,13 @@ udacity Full Stack Web Developer Nanodegree Project 3 - Item Catalog
 * templates/header.html -- header for all views
 * templates/footer.html -- footer for all views
 
+## Requirements
+
+* python
+* [flask](http://flask.pocoo.org) 
+* [sqlalchemy](http://www.sqlalchemy.org)
+* [SeaSurf](https://flask-seasurf.readthedocs.org)
+
 ##Setup
 for GitHub OAuth the Client ID and Client Secret have to be changed in application.py: 
 
@@ -22,7 +29,11 @@ for GitHub OAuth the Client ID and Client Secret have to be changed in applicati
 app.config['GITHUB_CLIENT_ID'] = 'XXX'
 app.config['GITHUB_CLIENT_SECRET'] = 'YYY'
 ```
-The callback url should be something like https://dev.danielburkard.de/github-callback
+
+The callback url should be something like https://dev.danielburkard.de/github-callback and can be configured in the head of application.py:
+```python
+github_callback_url = "https://dev.danielburkard.de/github-callback"
+```
 
 reset database:
 ```bash
