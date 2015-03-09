@@ -12,6 +12,7 @@ app = Flask(__name__)
 from flask.ext.github import GitHub
 app.config['GITHUB_CLIENT_ID'] = 'XXX'
 app.config['GITHUB_CLIENT_SECRET'] = 'YYY'
+github_callback_url = "https://dev.danielburkard.de/github-callback"
 github = GitHub(app)
 
 # setup sqlalchemy
@@ -26,7 +27,9 @@ Base.metadata.bind = engine
 db_session = scoped_session(sessionmaker(autocommit=False,
 	autoflush=False,
 	bind=engine))
+
 Base.query = db_session.query_property()
+
 # flask functions 
 ##################
 """show whole catalog with latest items"""
@@ -63,7 +66,11 @@ def addItem(category_name):
 			# check if an item name was entered
 			if request.form['name'] != "":
 				mycategory = Category.query.filter_by(name=request.form['category']).one()
-				item = Item(name=request.form['name'],image=request.form['image'],description=request.form['description'],category=mycategory,owner=user)
+				item = Item(name=request.form['name'],
+					image=request.form['image'],
+					description=request.form['description'],
+					category=mycategory,
+					owner=user)
 				db_session.add(item)
 				db_session.commit()
 				flash("Item " + item.name + " added to " + item.category.name)
@@ -131,7 +138,7 @@ def deleteItem(item_id):
 @app.route('/login')
 def loginUser():
 	# send user back to the source page
-	uri = "https://dev.danielburkard.de/github-callback?next=" + request.referrer
+	uri = github_callback_url + "?next=" + request.referrer
 	return github.authorize(redirect_uri=uri)
 	# if session.get('user_id', None) is None:
 	# 	return github.authorize()
