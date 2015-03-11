@@ -223,6 +223,6 @@ def catalogjson():
 	
 # run flask server if script is started directly 
 if __name__ == '__main__':
-	app.debug = True
+	app.debug = False
 	app.secret_key = app_secret
 	app.run(host = '0.0.0.0', port = 5000)
