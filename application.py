@@ -5,9 +5,9 @@ from flask.ext.seasurf import SeaSurf
 app = Flask(__name__)
 csrf = SeaSurf(app)
 # setup ssl if needed
-"""import ssl
+""import ssl
 context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
-context.load_cert_chain('/etc/ssl/private/server.pem')"""
+context.load_cert_chain('/etc/ssl/private/server.pem')""
 
 # setup client id and secret of github application for oauth 
 from flask.ext.github import GitHub
