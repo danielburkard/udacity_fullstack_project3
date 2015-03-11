@@ -5,9 +5,9 @@ from flask.ext.seasurf import SeaSurf
 app = Flask(__name__)
 csrf = SeaSurf(app)
 # setup ssl if needed
-""import ssl
+"""import ssl
 context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
-context.load_cert_chain('/etc/ssl/private/server.pem')""
+context.load_cert_chain('/etc/ssl/private/server.pem')"""
 
 # setup client id and secret of github application for oauth 
 from flask.ext.github import GitHub
@@ -36,30 +36,30 @@ Base.query = db_session.query_property()
 
 # flask functions 
 ##################
-"""show whole catalog with latest items"""
 @app.route('/')
+"""show whole catalog with latest items"""
 @app.route('/catalog/')
 def showCatalog():
 	categories = Category.query.all()
 	items = Item.query.order_by(Item.created.desc()).all()
 	return render_template('catalog.html', categories = categories,items=items,user=g.user)
 
-"""show a category with its items"""
 @app.route('/catalog/<string:category_name>/')
+"""show a category with its items"""
 def showCategory(category_name):
 	categories = Category.query.all()
 	category = Category.query.filter_by(name=category_name).one()
 	items = Item.query.filter_by(category = category).all()
 	return render_template('catalog.html', categories = categories,items=items,category=category,user=g.user)
 
-"""show a item"""
 @app.route('/item/<int:item_id>/')
+"""show a item"""
 def showItem(item_id):
 	item = Item.query.filter_by(id = item_id).one()
 	return render_template('item.html', item = item,user=g.user)
 
-"""add a item"""
 @app.route('/catalog/<string:category_name>/add/', methods = ['GET', 'POST'])
+"""add a item"""
 def addItem(category_name):
 	categories = Category.query.all()
 	category = Category.query.filter_by(name = category_name).one()
@@ -88,8 +88,8 @@ def addItem(category_name):
 		flash("Unauthorized user")
 		return redirect(url_for('showCatalog'))
 
-"""edit a item"""
 @app.route('/item/<int:item_id>/edit/', methods = ['GET', 'POST'])
+"""edit a item"""
 def editItem(item_id):
 	item = Item.query.filter_by(id = item_id).one()
 	user = g.user
@@ -118,8 +118,8 @@ def editItem(item_id):
 		flash("Unauthorized user")
 		return redirect(url_for('showCatalog'))
 
-"""delete a item"""
 @app.route('/item/<int:item_id>/delete/', methods = ['GET', 'POST'])
+"""delete a item"""
 def deleteItem(item_id):
 	item = Item.query.filter_by(id = item_id).one()
 	category = item.category
@@ -137,9 +137,8 @@ def deleteItem(item_id):
 		flash("Unauthorized user")
 		return redirect(url_for('showCatalog'))
 
-
-"""user Login"""
 @app.route('/login')
+"""user Login"""
 def loginUser():
 	# send user back to the source page
 	uri = github_callback_url + "?next=" + request.referrer
@@ -149,7 +148,7 @@ def loginUser():
 	# else:
 	# 	flash('User is already logged in')
 	# 	return redirect(url_for('showCatalog'))
-	
+
 """logout user and show main catalog view"""
 @app.route('/logout')
 def logoutUser():
@@ -157,8 +156,8 @@ def logoutUser():
 	flash('User logged out')
 	return redirect(url_for('showCatalog'))
 
-"""callback for github oauth"""
 @app.route('/github-callback')
+"""callback for github oauth"""
 @github.authorized_handler
 def authorized(oauth_token):
 	next_url = request.args.get('next') or url_for('showCatalog')
@@ -181,16 +180,16 @@ def authorized(oauth_token):
 	flash("User " + user.name + " logged in")
 	return redirect(next_url)
 
-"""github token getter"""
 @github.access_token_getter
+"""github token getter"""
 def token_getter():
 	user = g.user
 	if user is not None:
 		return user.github_access_token
 
 # Registers a function to run before each request.
-"""save user data to database, maybe it changed or user is new"""
 @app.before_request
+"""save user data to database, maybe it changed or user is new"""
 def before_request():
 	g.user = None
 	if 'user_id' in session:
@@ -200,14 +199,14 @@ def before_request():
 		db_session.add(g.user)
 		db_session.commit()
 
-"""Register a function to be run after each request"""
 @app.after_request
+"""Register a function to be run after each request"""
 def after_request(response):
 	db_session.remove()
 	return response
 
-"""json api for list of all items"""
 @app.route('/json')
+"""json api for list of all items"""
 def catalogjson():
 	list = []
 	items = Item.query.all()
